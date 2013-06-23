@@ -1,4 +1,4 @@
-package de.ravenfly.wdtv.gui.data;
+package de.ravenfly.mle.gui.data;
 
 import java.awt.Component;
 

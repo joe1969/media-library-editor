@@ -1,12 +1,12 @@
-package de.ravenfly.wdtv.gui.episode;
+package de.ravenfly.mle.gui.episode;
 
 import java.io.File;
 
-import de.ravenfly.wdtv.metaldata.DataIO;
-import de.ravenfly.wdtv.metaldata.filemodel.Episode;
-import de.ravenfly.wdtv.modulebase.DataContext;
-import de.ravenfly.wdtv.modulebase.DataHandlerException;
-import de.ravenfly.wdtv.modulebase.DataObserver;
+import de.ravenfly.mle.metaldata.DataIO;
+import de.ravenfly.mle.metaldata.filemodel.Episode;
+import de.ravenfly.mle.modulebase.DataContext;
+import de.ravenfly.mle.modulebase.DataHandlerException;
+import de.ravenfly.mle.modulebase.DataObserver;
 
 public class EpisodeContext {
 

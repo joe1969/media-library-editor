@@ -1,4 +1,4 @@
-package de.ravenfly.wdtv.gui;
+package de.ravenfly.mle.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -9,7 +9,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
-import de.ravenfly.wdtv.gui.episode.EpisodePanel;
+
+import de.ravenfly.mle.gui.episode.EpisodePanel;
 
 
 public class MainWindow extends JFrame{

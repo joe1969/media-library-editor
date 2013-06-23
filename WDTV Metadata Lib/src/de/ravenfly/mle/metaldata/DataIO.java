@@ -1,4 +1,4 @@
-package de.ravenfly.wdtv.metaldata;
+package de.ravenfly.mle.metaldata;
 
 import java.io.File;
 
@@ -8,9 +8,9 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
-import de.ravenfly.wdtv.metaldata.filemodel.Episode;
-import de.ravenfly.wdtv.modulebase.DataHandler;
-import de.ravenfly.wdtv.modulebase.DataHandlerException;
+import de.ravenfly.mle.metaldata.filemodel.Episode;
+import de.ravenfly.mle.modulebase.DataHandler;
+import de.ravenfly.mle.modulebase.DataHandlerException;
 
 public class DataIO implements DataHandler<Episode> {
 

@@ -1,4 +1,4 @@
-package de.ravenfly.wdtv.gui.episode;
+package de.ravenfly.mle.gui.episode;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -19,8 +19,8 @@ import org.jdesktop.beansbinding.BindingListener;
 import org.jdesktop.beansbinding.Bindings;
 import org.jdesktop.beansbinding.PropertyStateEvent;
 
-import de.ravenfly.wdtv.metaldata.filemodel.Episode;
-import de.ravenfly.wdtv.modulebase.DataObserver;
+import de.ravenfly.mle.metaldata.filemodel.Episode;
+import de.ravenfly.mle.modulebase.DataObserver;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.Binding.SyncFailure;

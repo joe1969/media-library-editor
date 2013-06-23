@@ -1,4 +1,4 @@
-package de.ravenfly.wdtv.gui;
+package de.ravenfly.mle.gui;
 
 import java.io.File;
 

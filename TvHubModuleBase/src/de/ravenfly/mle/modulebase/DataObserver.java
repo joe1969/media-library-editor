@@ -1,4 +1,4 @@
-package de.ravenfly.wdtv.modulebase;
+package de.ravenfly.mle.modulebase;
 
 public interface DataObserver {
 

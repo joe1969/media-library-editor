@@ -1,4 +1,4 @@
-package de.ravenfly.wdtv.metaldata.filemodel;
+package de.ravenfly.mle.metaldata.filemodel;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
