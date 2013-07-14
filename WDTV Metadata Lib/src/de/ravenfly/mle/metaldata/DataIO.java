@@ -8,21 +8,24 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
+import net.xeoh.plugins.base.annotations.Capabilities;
+import net.xeoh.plugins.base.annotations.PluginImplementation;
+import net.xeoh.plugins.base.annotations.meta.Author;
+import net.xeoh.plugins.base.annotations.meta.Version;
 import de.ravenfly.mle.metaldata.filemodel.Episode;
 import de.ravenfly.mle.modulebase.DataHandler;
 import de.ravenfly.mle.modulebase.DataHandlerException;
 
+@Author(name = "Joe Sollich")
+@Version(version = 10000)
+@PluginImplementation
 public class DataIO implements DataHandler<Episode> {
 
+	@Capabilities
 	@Override
-	public boolean canLoad() {
-		return true;
-	}
-
-	@Override
-	public boolean canSave() {
-		return true;
-	}
+	public String[] capabilities() {
+		return new String[] {"io:load", "io:save"};
+	} 
 
 	// "data/Shakugan no Shana.s01e01.xml"
 	@Override

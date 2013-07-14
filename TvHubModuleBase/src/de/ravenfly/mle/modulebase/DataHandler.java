@@ -1,10 +1,10 @@
 package de.ravenfly.mle.modulebase;
 
-public interface DataHandler<T> {
+import net.xeoh.plugins.base.Plugin;
 
-	public boolean canLoad();
-	
-	public boolean canSave();
+public interface DataHandler<T> extends Plugin{
+
+	public String[] capabilities();
 
 	public T load(String path) throws DataHandlerException;
 
