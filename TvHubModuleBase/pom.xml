@@ -32,19 +32,4 @@
 		</plugins>
 	</build>
 
-	<dependencies>
-		<dependency>
-			<groupId>net.xeoh.jspf</groupId>
-			<artifactId>jspf-core</artifactId>
-			<version>1.0.2</version>
-		</dependency>
-	</dependencies>
-
-	<repositories>
-		<repository>
-			<id>formreturn.com</id>
-			<url>http://maven.formreturn.com/repository/</url>
-		</repository>
-	</repositories>
-
 </project>
