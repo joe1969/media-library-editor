@@ -19,7 +19,6 @@
 	</issueManagement>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -37,16 +36,18 @@
 			<groupId>mediaLibraryEditor</groupId>
 			<artifactId>moduleBase</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>mediaLibraryEditor</groupId>
-			<artifactId>wdtvMetadata</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<version>4.2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>net.java.dev.beansbinding</groupId>
 			<artifactId>beansbinding</artifactId>
 			<version>1.2.1</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 

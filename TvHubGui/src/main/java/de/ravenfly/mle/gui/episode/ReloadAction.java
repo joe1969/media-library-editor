@@ -8,17 +8,17 @@ import javax.swing.ImageIcon;
 import de.ravenfly.mle.gui.data.DataAction;
 import de.ravenfly.mle.modulebase.DataObserver;
 
-public class SaveAction extends DataAction<EpisodeContext> implements DataObserver{
+public class ReloadAction extends DataAction<EpisodeContext> implements DataObserver {
 
-	private static final long serialVersionUID = 4747773412132701749L;
+	private static final long serialVersionUID = 2301416988097542239L;
 
-	public SaveAction(EpisodeContext context) {
+	public ReloadAction(EpisodeContext context) {
 		super(context);
 
-		putValue(NAME, "Save");
-		putValue(SHORT_DESCRIPTION, "Save to file");
-		putValue(SMALL_ICON, new ImageIcon(SaveAction.class.getResource("/rescources/icons/small/disk.png")));
-		putValue(MNEMONIC_KEY, KeyEvent.VK_S);
+		putValue(NAME, "Reopen");
+		putValue(SHORT_DESCRIPTION, "Reopen the file");
+		//putValue(SMALL_ICON, new ImageIcon(ReloadAction.class.getResource("/rescources/icons/small/arrow_refresh.png")));
+		putValue(MNEMONIC_KEY, KeyEvent.VK_R);
 
 		setEnabled(false);
 		context.addDataObserver(this);
@@ -27,7 +27,7 @@ public class SaveAction extends DataAction<EpisodeContext> implements DataObserv
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(context != null && context.isModified()){
-			context.save();
+			context.load();
 		}
 	}
 

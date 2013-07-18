@@ -24,7 +24,7 @@ public class LoadAction extends DataAction<EpisodeContext> implements DataObserv
 
 		putValue(NAME, "Open");
 		putValue(SHORT_DESCRIPTION, "Open a file");
-		putValue(SMALL_ICON, new ImageIcon(LoadAction.class.getResource("/rescources/icons/small/folder.png")));
+		//putValue(SMALL_ICON, new ImageIcon(LoadAction.class.getResource("/rescources/icons/small/folder.png")));
 		putValue(MNEMONIC_KEY, KeyEvent.VK_O);
 
 		context.addDataObserver(this);

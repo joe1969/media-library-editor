@@ -1,16 +1,16 @@
 package de.ravenfly.mle.gui.episode;
 
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
 
 import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
 
 import de.ravenfly.mle.gui.episode.EpisodeView;
 import de.ravenfly.mle.gui.episode.LoadAction;
 import de.ravenfly.mle.gui.episode.ReloadAction;
 import de.ravenfly.mle.gui.episode.SaveAction;
-
-import javax.swing.JButton;
 
 import java.awt.FlowLayout;
 

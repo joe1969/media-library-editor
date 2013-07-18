@@ -1,4 +1,4 @@
-package de.ravenfly.mle.metaldata;
+package de.ravenfly.mle.metadata;
 
 import java.io.File;
 
@@ -8,13 +8,13 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
-import de.ravenfly.mle.metaldata.filemodel.Episode;
 import de.ravenfly.mle.modulebase.DataHandler;
 import de.ravenfly.mle.modulebase.DataHandlerException;
+import de.ravenfly.mle.modulebase.filemodel.Episode;
 
-public class DataIO implements DataHandler<Episode> {
+public class DataIO implements DataHandler<Episode>{
 
-	@Override
+    @Override
 	public boolean canLoad() {
 		return true;
 	}

@@ -19,8 +19,8 @@ import org.jdesktop.beansbinding.BindingListener;
 import org.jdesktop.beansbinding.Bindings;
 import org.jdesktop.beansbinding.PropertyStateEvent;
 
-import de.ravenfly.mle.metaldata.filemodel.Episode;
 import de.ravenfly.mle.modulebase.DataObserver;
+import de.ravenfly.mle.modulebase.filemodel.Episode;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.Binding.SyncFailure;

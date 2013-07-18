@@ -19,7 +19,6 @@
 	</issueManagement>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -29,7 +28,36 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>false</addClasspath>
+						</manifest>
+						<manifestEntries>
+							<Bundle-Name>ModuleBase</Bundle-Name>
+							<Bundle-Description>ModuleBase</Bundle-Description>
+							<Bundle-Vendor>me</Bundle-Vendor>
+							<Bundle-Version>1.0.0</Bundle-Version>
+							<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+							<Bundle-SymbolicName>ModuleBase</Bundle-SymbolicName>
+							<Export-Package>de.ravenfly.mle.modulebase</Export-Package> 
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+	</dependencies>
 
 </project>

@@ -1,4 +1,4 @@
-package de.ravenfly.mle.metaldata;
+package de.ravenfly.mle.metadata;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import de.ravenfly.mle.metaldata.filemodel.Episode;
+import de.ravenfly.mle.modulebase.filemodel.Episode;
 
 public class XMLTest {
 
