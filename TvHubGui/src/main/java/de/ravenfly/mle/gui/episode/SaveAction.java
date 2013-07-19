@@ -17,7 +17,7 @@ public class SaveAction extends DataAction<EpisodeContext> implements DataObserv
 
 		putValue(NAME, "Save");
 		putValue(SHORT_DESCRIPTION, "Save to file");
-		//putValue(SMALL_ICON, new ImageIcon(SaveAction.class.getResource("/rescources/icons/small/disk.png")));
+		putValue(SMALL_ICON, new ImageIcon(SaveAction.class.getResource("/icons/small/disk.png")));
 		putValue(MNEMONIC_KEY, KeyEvent.VK_S);
 
 		setEnabled(false);

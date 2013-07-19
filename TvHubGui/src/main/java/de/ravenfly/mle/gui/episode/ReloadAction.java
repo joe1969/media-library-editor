@@ -17,7 +17,7 @@ public class ReloadAction extends DataAction<EpisodeContext> implements DataObse
 
 		putValue(NAME, "Reopen");
 		putValue(SHORT_DESCRIPTION, "Reopen the file");
-		//putValue(SMALL_ICON, new ImageIcon(ReloadAction.class.getResource("/rescources/icons/small/arrow_refresh.png")));
+		putValue(SMALL_ICON, new ImageIcon(ReloadAction.class.getResource("/icons/small/arrow_refresh.png")));
 		putValue(MNEMONIC_KEY, KeyEvent.VK_R);
 
 		setEnabled(false);
