@@ -3,6 +3,7 @@ package de.ravenfly.mle.gui.episode;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import org.jdesktop.beansbinding.Binding;
 import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.beansbinding.Bindings;
 
+import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.DataObserver;
 import de.ravenfly.mle.modulebase.filemodel.Episode;
 
@@ -26,8 +28,9 @@ import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 public class EpisodeView extends JPanel implements DataObserver {
 
 	private static final long serialVersionUID = 2208273354176814048L;
+	private final static Logger log = Logger.getLogger(EpisodeView.class.getName()); 
 
-	private EpisodeContext context;
+	private DataContext<Episode> context;
 
 	private BindingGroup m_bindingGroup;
 	private JTextField actorJTextField;
@@ -44,8 +47,11 @@ public class EpisodeView extends JPanel implements DataObserver {
 	private JTextField titleJTextField;
 	private JScrollPane scrollPane;
 
-	public EpisodeView(EpisodeContext context) {
+	public EpisodeView(DataContext<Episode> context) {
 		super();
+
+		log.info("Start Episode View");
+
 		this.context = context;
 		context.addDataObserver(this);
 

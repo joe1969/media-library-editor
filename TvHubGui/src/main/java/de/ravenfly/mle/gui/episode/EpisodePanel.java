@@ -7,10 +7,15 @@ import java.awt.BorderLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
+import org.osgi.framework.BundleContext;
+
 import de.ravenfly.mle.gui.actions.LoadAction;
 import de.ravenfly.mle.gui.actions.ReloadAction;
 import de.ravenfly.mle.gui.actions.SaveAction;
 import de.ravenfly.mle.gui.episode.EpisodeView;
+import de.ravenfly.mle.modulebase.DataContext;
+import de.ravenfly.mle.modulebase.DataContextException;
+import de.ravenfly.mle.modulebase.filemodel.Episode;
 
 import java.awt.FlowLayout;
 
@@ -20,17 +25,17 @@ public class EpisodePanel extends JPanel {
 
 	private final EpisodeView episodeView;
 
-	private EpisodeContext context;
+	private DataContext<Episode> context;
 
 	private LoadAction   loadAction;
 	private SaveAction   saveAction;
 	private ReloadAction reloadAction;
 
-	public EpisodePanel() {
+	public EpisodePanel(BundleContext bundleContext) throws DataContextException{
 		setLayout(new BorderLayout(0, 0));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		context = new EpisodeContext();
+		context = DataContext.createContext(Episode.class, bundleContext);
 
 		loadAction   = new LoadAction(context);
 		saveAction   = new SaveAction(context);
