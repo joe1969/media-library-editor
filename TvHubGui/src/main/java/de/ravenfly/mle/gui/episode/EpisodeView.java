@@ -44,7 +44,6 @@ public class EpisodeView extends JPanel implements DataObserver {
 	private JTextField titleJTextField;
 	private JScrollPane scrollPane;
 
-	
 	public EpisodeView(EpisodeContext context) {
 		super();
 		this.context = context;
@@ -257,14 +256,14 @@ public class EpisodeView extends JPanel implements DataObserver {
 		overviewJTextField.setLineWrap(true);
 		scrollPane.setViewportView(overviewJTextField);
 
-		Episode episode = context.getEpisode();
+		Episode episode = context.getModel();
 		if (episode != null) {
 			m_bindingGroup = initDataBindings();
 		}
 	}
 
 	protected BindingGroup initDataBindings() {
-		Episode episode = context.getEpisode();
+		Episode episode = context.getModel();
 
 		BeanProperty<Episode, String> actorProperty = BeanProperty.create("actor");
 		BeanProperty<JTextField, String> textProperty = BeanProperty.create("text");
@@ -347,7 +346,7 @@ public class EpisodeView extends JPanel implements DataObserver {
 			@Override
 			public void synced(Binding arg0) {
 				context.setModified(true);
-				context.getContext().fireDone();
+				context./*getContext().*/fireDone();
 			}
 		});
 

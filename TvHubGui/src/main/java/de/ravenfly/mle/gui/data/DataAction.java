@@ -4,14 +4,16 @@ import java.awt.Component;
 
 import javax.swing.AbstractAction;
 
-public abstract class DataAction<T> extends AbstractAction {
+import de.ravenfly.mle.modulebase.DataContext;
+
+public abstract class DataAction extends AbstractAction {
 
 	private static final long serialVersionUID = 4097389453478962201L;
 
 	protected Component parent;
-	protected T context;
+	protected DataContext<?> context;
 
-	public DataAction(T context) {
+	public DataAction(DataContext<?> context) {
 		super();
 		this.context     = context;
 		this.parent      = null;
