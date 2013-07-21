@@ -44,11 +44,20 @@
 			<version>4.2.1</version>
 		</dependency>
 		<dependency>
-			<groupId>net.java.dev.beansbinding</groupId>
+			<groupId>org.jdesktop</groupId>
 			<artifactId>beansbinding</artifactId>
 			<version>1.2.1</version>
-			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
+
+	<!--
+	<repositories>
+		<repository>
+			<id>java.net2</id>
+			<name>Java.net</name>
+			<url>https://oss.sonatype.org/content/repositories/java.net2</url>
+		</repository>
+	</repositories>
+    -->
 
 </project>

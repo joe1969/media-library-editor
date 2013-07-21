@@ -11,19 +11,17 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 
+import org.jdesktop.beansbinding.AbstractBindingListener;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Binding;
 import org.jdesktop.beansbinding.BindingGroup;
-import org.jdesktop.beansbinding.BindingListener;
 import org.jdesktop.beansbinding.Bindings;
-import org.jdesktop.beansbinding.PropertyStateEvent;
 
 import de.ravenfly.mle.modulebase.DataObserver;
 import de.ravenfly.mle.modulebase.filemodel.Episode;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
-import org.jdesktop.beansbinding.Binding.SyncFailure;
 
 public class EpisodeView extends JPanel implements DataObserver {
 
@@ -343,18 +341,14 @@ public class EpisodeView extends JPanel implements DataObserver {
 		bindingGroup.addBinding(autoBinding_8);
 		bindingGroup.addBinding(autoBinding_9);
 
-		bindingGroup.addBindingListener(new BindingListener() {
+		bindingGroup.addBindingListener( new AbstractBindingListener(){
+
 			@SuppressWarnings("rawtypes")
 			@Override
 			public void synced(Binding arg0) {
 				context.setModified(true);
 				context.getContext().fireDone();
 			}
-			@SuppressWarnings("rawtypes") @Override public void targetChanged(Binding arg0, PropertyStateEvent arg1) {}
-			@SuppressWarnings("rawtypes") @Override public void syncFailed(Binding arg0, SyncFailure arg1) {}
-			@SuppressWarnings("rawtypes") @Override public void sourceChanged(Binding arg0, PropertyStateEvent arg1) {}
-			@SuppressWarnings("rawtypes") @Override public void bindingBecameUnbound(Binding arg0) { }
-			@SuppressWarnings("rawtypes") @Override public void bindingBecameBound(Binding arg0) {}
 		});
 
 		return bindingGroup;
