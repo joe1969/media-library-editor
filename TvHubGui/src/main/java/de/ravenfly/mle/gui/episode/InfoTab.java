@@ -1,7 +1,9 @@
 package de.ravenfly.mle.gui.episode;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
@@ -9,7 +11,10 @@ import javax.swing.border.EmptyBorder;
 
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.filemodel.Episode;
+
 import java.awt.Insets;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class InfoTab extends JPanel {
 
@@ -46,4 +51,26 @@ public class InfoTab extends JPanel {
 		infoEditor.setContext(context);
 		imageEditor.setContext(context);
 	}
+
+    public void paintComponent(Graphics g) {
+    	super.paintComponent(g);
+
+		try {
+			BufferedImage tileImage = ImageIO.read(InfoTab.class.getResource("/background/Background_Paper.jpg"));
+
+	        int width = getWidth();  
+	        int height = getHeight();  
+	        int imageW = tileImage.getWidth(this);  
+	        int imageH = tileImage.getHeight(this);  
+	   
+	        // Tile the image to fill our area.  
+	        for (int x = 0; x < width; x += imageW) {  
+	            for (int y = 0; y < height; y += imageH) {  
+	                g.drawImage(tileImage, x, y, this);  
+	            }  
+	        }  
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 }

@@ -53,6 +53,8 @@ public class InfoEditor extends JPanel implements DataObserver {
 	public InfoEditor() {
 		super();
 
+		setOpaque(false);
+
 		log.info("Start Info Editor");
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
