@@ -1,10 +1,14 @@
 package de.ravenfly.mle.modulebase;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -18,6 +22,9 @@ public class DataContext<T> {
 	private boolean loaded;
 	private T model;
 	private DataHandler<T> datahandler;
+	private BufferedImage metathumb;
+	private String basePath;
+	private String baseName;
 
 	protected List<DataObserver> observers;
 
@@ -26,6 +33,7 @@ public class DataContext<T> {
 		modified  = false;
 		loaded    = false;
 		observers = new ArrayList<DataObserver>();
+		metathumb = null;
 	}
 
 	public File getFile() {
@@ -68,6 +76,30 @@ public class DataContext<T> {
 		this.datahandler = datahandler;
 	}
 
+	public BufferedImage getMetathumb() {
+		return metathumb;
+	}
+
+	public void setMetathumb(BufferedImage metathumb) {
+		this.metathumb = metathumb;
+	}
+
+	public String getBasePath() {
+		return basePath;
+	}
+
+	public void setBasePath(String basePath) {
+		this.basePath = basePath;
+	}
+
+	public String getBaseName() {
+		return baseName;
+	}
+
+	public void setBaseName(String baseName) {
+		this.baseName = baseName;
+	}
+
 	public boolean canLoad(){
 		return datahandler.canLoad();
 	}
@@ -87,12 +119,21 @@ public class DataContext<T> {
 		setFile(file);
 
 		try {
-			model = getDatahandler().load(file.getAbsolutePath());
+			String absoluteName = file.getAbsolutePath();
+			String fname = file.getName();
+
+			basePath = file.getParentFile().getAbsolutePath();
+			baseName = fname.substring(0, fname.lastIndexOf('.'));
+			log.fine("BasePath: " + basePath + ", BaseName: " + baseName);
+
+			model = getDatahandler().load(absoluteName);
+
 			setLoaded(true);
 			setModified(false);
+			setMetathumb(loadMetathumb(file));
+
 		} catch (DataHandlerException ex) {
 			log.log(Level.WARNING, "Data Handler Exception", ex);
-			ex.printStackTrace();
 		}
 
 		fireDone();
@@ -126,6 +167,21 @@ public class DataContext<T> {
 		return "DataContext [file=" + file + ", modified=" + modified
 				+ ", loaded=" + loaded + ", model=" + model + ", datahandler="
 				+ datahandler + ", observers=" + observers + "]";
+	}
+
+	private BufferedImage loadMetathumb(File xmlfile){
+
+		String file = xmlfile.getAbsolutePath();
+		File metathumb = new File(file.substring(0, file.lastIndexOf('.'))+".metathumb");
+
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(metathumb);
+		} catch (IOException e) {
+			log.log(Level.WARNING, "IO Exception", e);
+		}
+
+		return img;
 	}
 
 	public static <T> DataContext<T> createContext(Class<T> clazz, BundleContext bundleContext) throws DataContextException{

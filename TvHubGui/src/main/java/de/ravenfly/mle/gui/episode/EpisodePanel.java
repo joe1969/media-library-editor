@@ -12,7 +12,6 @@ import org.osgi.framework.BundleContext;
 import de.ravenfly.mle.gui.actions.LoadAction;
 import de.ravenfly.mle.gui.actions.ReloadAction;
 import de.ravenfly.mle.gui.actions.SaveAction;
-import de.ravenfly.mle.gui.episode.EpisodeView;
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.DataContextException;
 import de.ravenfly.mle.modulebase.filemodel.Episode;
@@ -35,13 +34,14 @@ public class EpisodePanel extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		context = DataContext.createContext(Episode.class, bundleContext);
 
+		context = DataContext.createContext(Episode.class, bundleContext);
 		loadAction   = new LoadAction(context);
 		saveAction   = new SaveAction(context);
 		reloadAction = new ReloadAction(context);
 
-		episodeView = new EpisodeView(context);
+		episodeView = new EpisodeView();
+		episodeView.setContext(context);
 		add(episodeView, BorderLayout.CENTER);
 
 		JPanel topPanel = new JPanel();
