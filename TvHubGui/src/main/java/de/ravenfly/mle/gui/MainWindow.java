@@ -101,6 +101,7 @@ public class MainWindow extends JFrame{
 
 		FrameworkFactory frameworkFactory = ServiceLoader.load(FrameworkFactory.class).iterator().next();
 		Map<String, String> config = new HashMap<String, String>();
+		config.put(Constants.FRAMEWORK_STORAGE_CLEAN, Constants.FRAMEWORK_STORAGE_CLEAN_ONFIRSTINIT);
 		config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.framework,de.ravenfly.mle.modulebase,de.ravenfly.mle.modulebase.filemodel,javax.xml.bind");
 		Framework framework = frameworkFactory.newFramework(config);
 		framework.start();
