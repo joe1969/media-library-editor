@@ -40,7 +40,7 @@ public class InfoTab extends JPanel {
 		gbc_infoEditor.gridy = 0;
 		add(infoEditor, gbc_infoEditor);
 		GridBagConstraints gbc_imageEditor = new GridBagConstraints();
-		gbc_imageEditor.insets = new Insets(5, 0, 5, 0);
+		gbc_imageEditor.insets = new Insets(5, 0, 5, 5);
 		gbc_imageEditor.anchor = GridBagConstraints.NORTH;
 		gbc_imageEditor.gridx = 1;
 		gbc_imageEditor.gridy = 0;
