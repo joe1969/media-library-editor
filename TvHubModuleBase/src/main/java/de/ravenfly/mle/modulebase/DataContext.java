@@ -2,19 +2,16 @@ package de.ravenfly.mle.modulebase;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
-
 public class DataContext<T> {
 	
 	private final static Logger log = Logger.getLogger(DataContext.class.getName()); 
 
-	private File file;
+	private File videofile;
 	private boolean modified;
 	private boolean loaded;
 	private T model;
@@ -22,6 +19,7 @@ public class DataContext<T> {
 	private BufferedImage metathumb;
 	private String basePath;
 	private String baseName;
+	private String absoluteName;
 
 	protected List<DataObserver> observers;
 
@@ -33,12 +31,31 @@ public class DataContext<T> {
 		metathumb = null;
 	}
 
-	public File getFile() {
-		return file;
+	public File getVideofile() {
+		return videofile;
 	}
 
-	public void setFile(File file) {
-		this.file = file;
+	public void setVideofile(File videofile) {
+		this.videofile = videofile;
+
+		String name = videofile.getName();
+
+		basePath = videofile.getParentFile().getAbsolutePath();
+		baseName = name.substring(0, name.lastIndexOf('.'));
+		absoluteName = basePath + "/" + baseName;
+		log.fine("BasePath: " + basePath + ", BaseName: " + baseName + ", AbsoluteName: " + absoluteName);
+	}
+
+	public String getBasePath() {
+		return basePath;
+	}
+
+	public String getBaseName() {
+		return baseName;
+	}
+
+	public String getAbsoluteName() {
+		return absoluteName;
 	}
 
 	public boolean isModified() {
@@ -81,22 +98,6 @@ public class DataContext<T> {
 		this.metathumb = metathumb;
 	}
 
-	public String getBasePath() {
-		return basePath;
-	}
-
-	public void setBasePath(String basePath) {
-		this.basePath = basePath;
-	}
-
-	public String getBaseName() {
-		return baseName;
-	}
-
-	public void setBaseName(String baseName) {
-		this.baseName = baseName;
-	}
-
 	public boolean canLoad(){
 		return datahandler.canLoad();
 	}
@@ -106,28 +107,12 @@ public class DataContext<T> {
 	}
 
 	public void load(){
-		if(isModified()){
-			load(getFile());
-		}
-	}
-
-	public void load(File file){
-
-		setFile(file);
-
 		try {
-			String absoluteName = file.getAbsolutePath();
-			String fname = file.getName();
-
-			basePath = file.getParentFile().getAbsolutePath();
-			baseName = fname.substring(0, fname.lastIndexOf('.'));
-			log.fine("BasePath: " + basePath + ", BaseName: " + baseName);
-
-			model = getDatahandler().load(absoluteName);
+			model = getDatahandler().loadInfo(absoluteName);
+			metathumb = getDatahandler().loadMetathumb(absoluteName);
 
 			setLoaded(true);
 			setModified(false);
-			setMetathumb(loadMetathumb(file));
 
 		} catch (DataException ex) {
 			log.log(Level.WARNING, "Data Exception", ex);
@@ -139,7 +124,7 @@ public class DataContext<T> {
 	public void save(){
 		if(isModified()){
 			try {
-				getDatahandler().save(getModel(), getFile().getAbsolutePath());
+				getDatahandler().saveInfo(getModel(), getVideofile().getAbsolutePath());
 				setModified(false);
 			} catch (DataException ex) {
 				log.log(Level.WARNING, "Data Exception", ex);
@@ -148,9 +133,14 @@ public class DataContext<T> {
 		}
 	}
 
-	
 	public void addDataObserver(DataObserver observer){
 		observers.add(observer);
+	}
+
+	public void removeDataObserver(DataObserver observer){
+		if(observers.contains(observer)){
+			observers.remove(observer);
+		}
 	}
 
 	public void fireDone(){
@@ -161,23 +151,10 @@ public class DataContext<T> {
 
 	@Override
 	public String toString() {
-		return "DataContext [file=" + file + ", modified=" + modified
+		return "DataContext [videofile=" + videofile + ", modified=" + modified
 				+ ", loaded=" + loaded + ", model=" + model + ", datahandler="
-				+ datahandler + ", observers=" + observers + "]";
-	}
-
-	private BufferedImage loadMetathumb(File xmlfile){
-
-		String file = xmlfile.getAbsolutePath();
-		File metathumb = new File(file.substring(0, file.lastIndexOf('.'))+".metathumb");
-
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(metathumb);
-		} catch (IOException e) {
-			log.log(Level.WARNING, "IO Exception", e);
-		}
-
-		return img;
+				+ datahandler + ", metathumb=" + metathumb + ", basePath="
+				+ basePath + ", baseName=" + baseName + ", absoluteName="
+				+ absoluteName + ", observers=" + observers + "]";
 	}
 }

@@ -4,8 +4,7 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-
-public class XmlFileFilter extends FileFilter {
+public class VideoFileFilter extends FileFilter {
 
 	@Override
 	public boolean accept(File f) {
@@ -13,10 +12,10 @@ public class XmlFileFilter extends FileFilter {
             return true;
         }
 
-        String filename = f.getName();
-        String extension = filename.substring(filename.lastIndexOf(".") +1).toLowerCase();
+        String name = f.getName();
+        String extension = name.substring(name.lastIndexOf(".") +1).toLowerCase();
         if (extension != null) {
-            if (extension.equals("xml")) {
+            if (extension.equals("flv") || extension.equals("mp4") || extension.equals("mkv")) {
             	return true;
             } else {
                 return false;
@@ -27,8 +26,6 @@ public class XmlFileFilter extends FileFilter {
 
 	@Override
 	public String getDescription() {
-		return "XML File (*.xml)";
+		return "Video File (*.flv, *.mp4, *.mkv)";
 	}
-
-
 }

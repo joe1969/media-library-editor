@@ -1,7 +1,10 @@
 package de.ravenfly.mle.metadata;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -26,7 +29,7 @@ public class DataIO implements DataHandler<Episode>{
 
 	// "data/Shakugan no Shana.s01e01.xml"
 	@Override
-	public Episode load(String path) throws DataException {
+	public Episode loadInfo(String path) throws DataException {
 		JAXBContext context;
 
 		try {
@@ -44,7 +47,7 @@ public class DataIO implements DataHandler<Episode>{
 
 		Episode episode;
 		try {
-			episode = (Episode) um.unmarshal(new File(path));
+			episode = (Episode) um.unmarshal(new File(path + ".xml"));
 		} catch (JAXBException e) {
 			throw new DataException(e);
 		}
@@ -53,9 +56,9 @@ public class DataIO implements DataHandler<Episode>{
 	}
 
 	@Override
-	public void save(Episode model, String path) throws DataException {
+	public void saveInfo(Episode model, String path) throws DataException {
 
-		System.out.println("Path: " + path);
+		System.out.println("Path: " + path + ".xml");
 		System.out.println("Model: " + model);
 	    JAXBContext context;
 		try {
@@ -76,9 +79,28 @@ public class DataIO implements DataHandler<Episode>{
 		}
 		
 		try {
-			m.marshal(model, new File(path));
+			m.marshal(model, new File(path + ".xml"));
 		} catch (JAXBException e) {
 			throw new DataException(e);
 		}
 	}
+
+	public BufferedImage loadMetathumb(String path) throws DataException{
+
+		File metathumb = new File(path + ".metathumb");
+		BufferedImage img = null;
+
+		try {
+			img = ImageIO.read(metathumb);
+		} catch (IOException e) {
+			throw new DataException(e);
+		}
+
+		return img;
+	}
+
+	public void saveMetathumb(BufferedImage image, String path) throws DataException{
+		
+	}
+
 }
