@@ -14,7 +14,9 @@ public class DataContextFactory {
 
 	private final static Logger log = Logger.getLogger(DataContextFactory.class.getName()); 
 
-	public static <T> DataContext<T> createContext(Class<T> clazz, BundleContext bundleContext) throws DataException{
+	public static <T> DataContext<T> createContext(Class<T> clazz) throws DataException{
+
+		BundleContext bundleContext = ModuleFactory.getInstance().getContext();
 
 		DataContext<T> dataContext = new DataContext<T>();
 

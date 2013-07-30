@@ -7,8 +7,6 @@ import java.awt.BorderLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
-import org.osgi.framework.BundleContext;
-
 import de.ravenfly.mle.gui.actions.LoadAction;
 import de.ravenfly.mle.gui.actions.ReloadAction;
 import de.ravenfly.mle.gui.actions.SaveAction;
@@ -32,16 +30,16 @@ public class EpisodePanel extends JPanel {
 	private SaveAction   saveAction;
 	private ReloadAction reloadAction;
 
-	public EpisodePanel(BundleContext bundleContext) throws DataException{
+	public EpisodePanel() throws DataException{
 		setLayout(new BorderLayout(0, 0));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		context = DataContextFactory.createContext(Episode.class, bundleContext);
+		context      = DataContextFactory.createContext(Episode.class);
 		loadAction   = new LoadAction(context);
 		saveAction   = new SaveAction(context);
 		reloadAction = new ReloadAction(context);
 
-		tab = DataTabFactory.createDataTab(Episode.class, bundleContext);
+		tab = DataTabFactory.createDataTab(Episode.class);
 		tab.setContext(context);
 		add(tab, BorderLayout.CENTER);
 

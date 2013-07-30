@@ -12,7 +12,9 @@ public class DataTabFactory {
 
 	private final static Logger log = Logger.getLogger(DataTabFactory.class.getName()); 
 
-	public static <T> DataTab<T> createDataTab(Class<T> clazz, BundleContext bundleContext) throws DataException{
+	public static <T> DataTab<T> createDataTab(Class<T> clazz) throws DataException{
+
+		BundleContext bundleContext = ModuleFactory.getInstance().getContext();
 
 		final ServiceReference<?> reference = bundleContext.getServiceReference(DataTab.class.getName());
 		@SuppressWarnings("unchecked")
