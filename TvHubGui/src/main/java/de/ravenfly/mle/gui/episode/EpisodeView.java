@@ -2,8 +2,6 @@ package de.ravenfly.mle.gui.episode;
 
 import java.awt.event.KeyEvent;
 
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import de.ravenfly.mle.modulebase.DataContext;
@@ -14,6 +12,7 @@ public class EpisodeView extends JTabbedPane {
 	private static final long serialVersionUID = 7767489136867383429L;
 
 	private InfoTab infoTab;
+	private FanartTab fanartTab;
 
 	/**
 	 * Create the panel.
@@ -23,8 +22,8 @@ public class EpisodeView extends JTabbedPane {
 		addTab("Info", infoTab);
 		setMnemonicAt(0, KeyEvent.VK_1);
 
-		JComponent panel2 = new JPanel();
-		addTab("Fanart", panel2);
+		fanartTab = new FanartTab();
+		addTab("Fanart", fanartTab);
 		setMnemonicAt(1, KeyEvent.VK_2);
 	}
 

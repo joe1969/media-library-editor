@@ -161,7 +161,7 @@ public class InfoEditor extends JPanel implements DataObserver {
 		componentGbc_11.gridy = 1;
 		add(titleJTextField, componentGbc_11);
 
-		JLabel seriesNameLabel = new JLabel("SeriesName:");
+		JLabel seriesNameLabel = new JLabel("Series Name:");
 		GridBagConstraints labelGbc_10 = new GridBagConstraints();
 		labelGbc_10.anchor = GridBagConstraints.WEST;
 		labelGbc_10.insets = new Insets(0, 0, 5, 5);
@@ -178,7 +178,7 @@ public class InfoEditor extends JPanel implements DataObserver {
 		componentGbc_10.gridy = 2;
 		add(seriesNameJTextField, componentGbc_10);
 
-		JLabel episodeNameLabel = new JLabel("EpisodeName:");
+		JLabel episodeNameLabel = new JLabel("Episode Name:");
 		GridBagConstraints labelGbc_2 = new GridBagConstraints();
 		labelGbc_2.anchor = GridBagConstraints.WEST;
 		labelGbc_2.insets = new Insets(0, 0, 5, 5);
