@@ -12,12 +12,12 @@ import org.osgi.framework.BundleContext;
 import de.ravenfly.mle.gui.actions.LoadAction;
 import de.ravenfly.mle.gui.actions.ReloadAction;
 import de.ravenfly.mle.gui.actions.SaveAction;
+import de.ravenfly.mle.gui.osgi.DataContextFactory;
+import de.ravenfly.mle.gui.osgi.DataTabFactory;
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.DataException;
-import de.ravenfly.mle.modulebase.DataContextFactory;
 import de.ravenfly.mle.modulebase.filemodel.Episode;
 import de.ravenfly.mle.modulebase.gui.DataTab;
-import de.ravenfly.mle.modulebase.gui.DataTabFactory;
 
 import java.awt.FlowLayout;
 

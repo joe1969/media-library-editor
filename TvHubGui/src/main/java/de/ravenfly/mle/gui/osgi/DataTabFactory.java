@@ -1,4 +1,4 @@
-package de.ravenfly.mle.modulebase.gui;
+package de.ravenfly.mle.gui.osgi;
 
 import java.util.logging.Logger;
 
@@ -6,6 +6,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
 import de.ravenfly.mle.modulebase.DataException;
+import de.ravenfly.mle.modulebase.gui.DataTab;
 
 public class DataTabFactory {
 
@@ -23,5 +24,4 @@ public class DataTabFactory {
 
 		return handler;
 	}
-
 }
