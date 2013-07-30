@@ -14,7 +14,7 @@ public class DataTabFactory {
 
 	public static <T> DataTab<T> createDataTab(Class<T> clazz) throws DataException{
 
-		BundleContext bundleContext = ModuleFactory.getInstance().getContext();
+		BundleContext bundleContext = ModuleFactory.getInstance().getBundleContext();
 
 		final ServiceReference<?> reference = bundleContext.getServiceReference(DataTab.class.getName());
 		@SuppressWarnings("unchecked")

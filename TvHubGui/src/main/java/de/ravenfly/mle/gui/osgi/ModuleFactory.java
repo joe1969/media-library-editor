@@ -19,14 +19,12 @@ import org.osgi.framework.launch.FrameworkFactory;
 public class ModuleFactory {
 
 	private final static Logger log = Logger.getLogger(ModuleFactory.class.getName());
-	private static ModuleFactory instance = null;
 
-	private BundleContext context;
+	private static ModuleFactory instance = new ModuleFactory();
 
-	public static synchronized ModuleFactory getInstance() {
-		if (instance == null) {
-			instance = new ModuleFactory();
-		}
+	private BundleContext bundleContext;
+
+	public static ModuleFactory getInstance() {
 		return instance;
 	}
 
@@ -60,12 +58,12 @@ public class ModuleFactory {
 			log.log(Level.SEVERE, "Bundle Exception on Start Farmework", e);
 		}
 
-		context = framework.getBundleContext();
+		bundleContext = framework.getBundleContext();
 		List<Bundle> installedBundles = new LinkedList<Bundle>();
 
 		try {
-			installedBundles.add(context.installBundle("file:../WDTV Metadata Lib/target/wdtvMetadata-1.0.0-SNAPSHOT.jar"));
-			installedBundles.add(context.installBundle("file:../episodeGui/target/episodeGui-1.0.0-SNAPSHOT.jar"));
+			installedBundles.add(bundleContext.installBundle("file:../WDTV Metadata Lib/target/wdtvMetadata-1.0.0-SNAPSHOT.jar"));
+			installedBundles.add(bundleContext.installBundle("file:../episodeGui/target/episodeGui-1.0.0-SNAPSHOT.jar"));
 		} catch (BundleException e) {
 			log.log(Level.SEVERE, "Bundle Exception on install Bundles", e);
 		}
@@ -81,7 +79,7 @@ public class ModuleFactory {
 		}
 	}
 
-	public BundleContext getContext() {
-		return context;
+	public BundleContext getBundleContext() {
+		return bundleContext;
 	}
 }

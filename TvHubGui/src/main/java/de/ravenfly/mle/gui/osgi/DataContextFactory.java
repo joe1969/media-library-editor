@@ -16,7 +16,7 @@ public class DataContextFactory {
 
 	public static <T> DataContext<T> createContext(Class<T> clazz) throws DataException{
 
-		BundleContext bundleContext = ModuleFactory.getInstance().getContext();
+		BundleContext bundleContext = ModuleFactory.getInstance().getBundleContext();
 
 		DataContext<T> dataContext = new DataContext<T>();
 
