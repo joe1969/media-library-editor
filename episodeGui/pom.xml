@@ -3,12 +3,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>mediaLibraryEditor</groupId>
-	<artifactId>moduleBase</artifactId>
+	<artifactId>episodeGui</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 
 	<packaging>bundle</packaging>
 
-	<name>Media Library Editor - Module Base</name>
+	<name>Media Library Editor - WDTV Metadata</name>
 
 	<scm>
 		<connection>scm:git:https://github.com/joe1969/media-library-editor</connection>
@@ -30,29 +30,6 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			<!--
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>false</addClasspath>
-						</manifest>
-						<manifestEntries>
-							<Bundle-Name>ModuleBase</Bundle-Name>
-							<Bundle-Description>ModuleBase</Bundle-Description>
-							<Bundle-Vendor>me</Bundle-Vendor>
-							<Bundle-Version>1.0.0</Bundle-Version>
-							<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
-							<Bundle-SymbolicName>ModuleBase</Bundle-SymbolicName>
-							<Export-Package>de.ravenfly.mle.modulebase</Export-Package> 
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
-			-->
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -60,8 +37,21 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Export-Package>de.ravenfly.mle.modulebase,de.ravenfly.mle.modulebase.filemodel,de.ravenfly.mle.modulebase.gui</Export-Package>
+						<Export-Package>de.ravenfly.mle.episode.gui</Export-Package>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Activator>de.ravenfly.mle.episode.gui.Activator</Bundle-Activator>
+						<!--
+						<Import-Package>
+							javax.imageio,
+							javax.swing,
+							javax.swing.border,
+							org.osgi.framework,
+							org.jdesktop.beansbinding,
+							de.ravenfly.mle.modulebase,
+							de.ravenfly.mle.modulebase.gui,
+							de.ravenfly.mle.modulebase.filemodel
+						</Import-Package>
+						-->
 					</instructions>
 				</configuration>
 			</plugin>
@@ -70,10 +60,19 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>mediaLibraryEditor</groupId>
+			<artifactId>moduleBase</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.framework</artifactId>
 			<version>4.2.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jdesktop</groupId>
+			<artifactId>beansbinding</artifactId>
+			<version>1.2.1</version>
+		</dependency>
 	</dependencies>
-
 </project>

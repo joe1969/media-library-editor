@@ -1,4 +1,4 @@
-package de.ravenfly.mle.gui.episode;
+package de.ravenfly.mle.episode.gui;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

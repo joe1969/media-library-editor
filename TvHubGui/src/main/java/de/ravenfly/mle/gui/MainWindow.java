@@ -2,6 +2,7 @@ package de.ravenfly.mle.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +26,7 @@ import org.osgi.framework.launch.Framework;
 import org.osgi.framework.launch.FrameworkFactory;
 
 import de.ravenfly.mle.gui.episode.EpisodePanel;
-import de.ravenfly.mle.modulebase.DataContextException;
+import de.ravenfly.mle.modulebase.DataException;
 
 public class MainWindow extends JFrame{
 
@@ -92,7 +93,7 @@ public class MainWindow extends JFrame{
 			contentPane.add(episodePanel, BorderLayout.CENTER);
 		} catch (BundleException e) {
 			e.printStackTrace();
-		} catch (DataContextException e) {
+		} catch (DataException e) {
 			e.printStackTrace();
 		}
 	}
@@ -102,7 +103,24 @@ public class MainWindow extends JFrame{
 		FrameworkFactory frameworkFactory = ServiceLoader.load(FrameworkFactory.class).iterator().next();
 		Map<String, String> config = new HashMap<String, String>();
 		config.put(Constants.FRAMEWORK_STORAGE_CLEAN, Constants.FRAMEWORK_STORAGE_CLEAN_ONFIRSTINIT);
-		config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, "org.osgi.framework,de.ravenfly.mle.modulebase,de.ravenfly.mle.modulebase.filemodel,javax.xml.bind");
+
+		List<String> packages = new ArrayList<String>();
+
+		packages.add("javax.xml.bind");
+		packages.add("org.jdesktop.beansbinding");
+		packages.add("org.osgi.framework");
+		packages.add("de.ravenfly.mle.modulebase");
+		packages.add("de.ravenfly.mle.modulebase.filemodel");
+		packages.add("de.ravenfly.mle.modulebase.gui");
+
+		StringBuilder buffer = new StringBuilder();
+		int i = 0;
+		for (String string : packages) {
+			buffer.append(i++ > 0?",":"");
+			buffer.append(string);
+		}
+
+		config.put(Constants.FRAMEWORK_SYSTEMPACKAGES_EXTRA, buffer.toString());
 		Framework framework = frameworkFactory.newFramework(config);
 		framework.start();
 
@@ -110,6 +128,7 @@ public class MainWindow extends JFrame{
 		List<Bundle> installedBundles = new LinkedList<Bundle>();
 
 		installedBundles.add(bundleContext.installBundle("file:../WDTV Metadata Lib/target/wdtvMetadata-1.0.0-SNAPSHOT.jar"));
+		installedBundles.add(bundleContext.installBundle("file:../episodeGui/target/episodeGui-1.0.0-SNAPSHOT.jar"));
 
 		for (Bundle bundle : installedBundles) {
 			if (bundle.getHeaders().get(Constants.FRAGMENT_HOST) == null){

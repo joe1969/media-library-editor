@@ -6,7 +6,7 @@ public interface DataHandler<T> {
 	
 	public boolean canSave();
 
-	public T load(String path) throws DataHandlerException;
+	public T load(String path) throws DataException;
 
-	public void save(T model, String path) throws DataHandlerException;
+	public void save(T model, String path) throws DataException;
 }

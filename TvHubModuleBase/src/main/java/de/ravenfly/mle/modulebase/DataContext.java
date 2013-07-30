@@ -10,9 +10,6 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
-
 public class DataContext<T> {
 	
 	private final static Logger log = Logger.getLogger(DataContext.class.getName()); 
@@ -132,8 +129,8 @@ public class DataContext<T> {
 			setModified(false);
 			setMetathumb(loadMetathumb(file));
 
-		} catch (DataHandlerException ex) {
-			log.log(Level.WARNING, "Data Handler Exception", ex);
+		} catch (DataException ex) {
+			log.log(Level.WARNING, "Data Exception", ex);
 		}
 
 		fireDone();
@@ -144,8 +141,8 @@ public class DataContext<T> {
 			try {
 				getDatahandler().save(getModel(), getFile().getAbsolutePath());
 				setModified(false);
-			} catch (DataHandlerException ex) {
-				log.log(Level.WARNING, "Data Handler Exception", ex);
+			} catch (DataException ex) {
+				log.log(Level.WARNING, "Data Exception", ex);
 			}
 			fireDone();
 		}
@@ -182,31 +179,5 @@ public class DataContext<T> {
 		}
 
 		return img;
-	}
-
-	public static <T> DataContext<T> createContext(Class<T> clazz, BundleContext bundleContext) throws DataContextException{
-		
-		DataContext<T> dataContext = new DataContext<T>();
-
-		final ServiceReference<?> reference = bundleContext.getServiceReference(DataHandler.class.getName());
-		@SuppressWarnings("unchecked")
-		final DataHandler<T> handler = (DataHandler<T>) bundleContext.getService(reference);
-
-		if(handler != null ){
-			log.fine("Konsument-ServiceTracker liest DataHandler: " + handler);
-        }
-
-		dataContext.setDatahandler(handler);
-		try {
-			dataContext.setModel(clazz.newInstance());
-		} catch (InstantiationException e) {
-			log.log(Level.WARNING, "Instantiation Exception", e);
-			throw new DataContextException(e);
-		} catch (IllegalAccessException e) {
-			log.log(Level.WARNING, "Illegal Access Exception", e);
-			throw new DataContextException(e);
-		}
-
-		return dataContext;
 	}
 }

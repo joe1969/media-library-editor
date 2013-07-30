@@ -1,13 +1,12 @@
-package de.ravenfly.mle.gui.episode;
+package de.ravenfly.mle.episode.gui;
 
 import java.awt.event.KeyEvent;
 
-import javax.swing.JTabbedPane;
-
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.filemodel.Episode;
+import de.ravenfly.mle.modulebase.gui.DataTab;
 
-public class EpisodeView extends JTabbedPane {
+public class EpisodeView extends DataTab<Episode> {
 
 	private static final long serialVersionUID = 7767489136867383429L;
 
