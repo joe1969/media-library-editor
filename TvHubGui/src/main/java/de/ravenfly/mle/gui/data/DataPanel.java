@@ -23,7 +23,11 @@ public class DataPanel<T> extends JPanel {
 
 	private static final long serialVersionUID = 1583025667054246775L;
 
-	public DataPanel() throws DataException{
+	public static <T> DataPanel<T> newInstance(Class<T> type) throws DataException{
+		return new DataPanel<T>();
+	}
+
+	private DataPanel() throws DataException{
 
 		setLayout(new BorderLayout(10, 0));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
