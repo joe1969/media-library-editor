@@ -4,10 +4,6 @@ import java.awt.image.BufferedImage;
 
 public interface DataHandler<T> {
 
-	public boolean canLoad();
-	
-	public boolean canSave();
-
 	public T loadInfo(String path) throws DataException;
 
 	public void saveInfo(T model, String path) throws DataException;

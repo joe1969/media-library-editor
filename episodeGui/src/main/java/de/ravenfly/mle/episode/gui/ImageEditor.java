@@ -15,17 +15,20 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
+import de.ravenfly.mle.modulebase.ContextObserver;
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.DataObserver;
 import de.ravenfly.mle.modulebase.filemodel.Episode;
 
-public class ImageEditor extends JPanel implements DataObserver {
+public class ImageEditor extends JPanel implements DataObserver, ContextObserver<Episode> {
 
 	//private static final int WIDTH = 680;
 	//private static final int HEIGHT = 1000;
 	private static final int WIDTH = 170;
 	private static final int HEIGHT = 250;
-	
+
+	private static final String TEXT = "No Image";
+
 	private static final long serialVersionUID = 6365370309490345859L;
 
 	private DataContext<Episode> context;
@@ -40,7 +43,7 @@ public class ImageEditor extends JPanel implements DataObserver {
 		gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		image = new JLabel("No Image");
+		image = new JLabel(TEXT);
 		Dimension size = new Dimension(WIDTH, HEIGHT); 
 		image.setSize(size);
 		image.setPreferredSize(size);
@@ -56,13 +59,14 @@ public class ImageEditor extends JPanel implements DataObserver {
 		add(image, gbc_lblImage);
 	}
 
+	@Override
 	public void setContext(DataContext<Episode> context) {
 		this.context = context;
 		context.addDataObserver(this);
 	}
 
 	@Override
-	public void done() {
+	public void openDone() {
 		try {
 			BufferedImage img = context.getMetathumb();
 			if(img != null){
@@ -75,6 +79,20 @@ public class ImageEditor extends JPanel implements DataObserver {
 		}
 	}
 
+	@Override
+	public void closeDone() {
+		image.setIcon(null);
+		image.setText(TEXT);
+	}
+
+	@Override
+	public void flushDone() {
+	}
+
+	@Override
+	public void modifiedDone() {
+	}
+
 	private BufferedImage resizeImage(BufferedImage originalImage, int width, int height) throws IOException {
 
 		BufferedImage resizedImage = new BufferedImage(width, height, originalImage.getType());
@@ -83,4 +101,5 @@ public class ImageEditor extends JPanel implements DataObserver {
 		g.dispose();
 		return resizedImage;
 	 }
+
 }

@@ -29,6 +29,7 @@ public class DataContextFactory {
         }
 
 		dataContext.setDatahandler(handler);
+
 		try {
 			dataContext.setModel(clazz.newInstance());
 		} catch (InstantiationException e) {

@@ -10,10 +10,11 @@ import javax.swing.JButton;
 import de.ravenfly.mle.gui.actions.LoadAction;
 import de.ravenfly.mle.gui.actions.ReloadAction;
 import de.ravenfly.mle.gui.actions.SaveAction;
-import de.ravenfly.mle.gui.osgi.DataContextFactory;
+import de.ravenfly.mle.gui.open.OpenAction;
 import de.ravenfly.mle.gui.osgi.DataTabFactory;
-import de.ravenfly.mle.modulebase.DataContext;
+import de.ravenfly.mle.gui.osgi.DataFeaturesFactory;
 import de.ravenfly.mle.modulebase.DataException;
+import de.ravenfly.mle.modulebase.DataFeatures;
 import de.ravenfly.mle.modulebase.filemodel.Episode;
 import de.ravenfly.mle.modulebase.gui.DataTab;
 
@@ -23,39 +24,47 @@ public class EpisodePanel extends JPanel {
 
 	private static final long serialVersionUID = 1583025667054246775L;
 
-	private final DataTab<Episode> tab;
-	private DataContext<Episode> context;
-
-	private LoadAction   loadAction;
-	private SaveAction   saveAction;
-	private ReloadAction reloadAction;
-
 	public EpisodePanel() throws DataException{
-		setLayout(new BorderLayout(0, 0));
+
+		setLayout(new BorderLayout(10, 0));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		context      = DataContextFactory.createContext(Episode.class);
-		loadAction   = new LoadAction(context);
-		saveAction   = new SaveAction(context);
-		reloadAction = new ReloadAction(context);
+		DataFeatures                 features     = DataFeaturesFactory.create();
 
-		tab = DataTabFactory.createDataTab(Episode.class);
-		tab.setContext(context);
-		add(tab, BorderLayout.CENTER);
+		DataContextSelector<Episode> selector     = new DataContextSelector<Episode>();
+		final DataTab<Episode>       tab          = DataTabFactory.createDataTab(Episode.class);
+
+		OpenAction                   openAction   = new OpenAction();
+		LoadAction<Episode>          loadAction   = new LoadAction<Episode>();
+		SaveAction<Episode>          saveAction   = new SaveAction<Episode>();
+		ReloadAction<Episode>        reloadAction = new ReloadAction<Episode>();
+
+		openAction.addOpenObserver(selector);
 
 		JPanel topPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) topPanel.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		add(topPanel, BorderLayout.NORTH);
 
-		if(context.canLoad()){
+		add(selector, BorderLayout.WEST);
+
+		add(tab, BorderLayout.CENTER);
+		selector.addContextObserver(tab);
+		selector.addContextObserver(loadAction);
+		selector.addContextObserver(saveAction);
+		selector.addContextObserver(reloadAction);
+
+		JButton btnOpen = new JButton(openAction);
+		openAction.setParent(this);
+		topPanel.add(btnOpen);
+
+		if(features.canLoad()){
 			JButton btnLoad = new JButton(loadAction);
 			loadAction.setParent(this);
-			loadAction.setCurrentDirectory("data");
 			topPanel.add(btnLoad);
 		}
 
-		if(context.canSave()){
+		if(features.canSave()){
 			JButton btnSave = new JButton(saveAction);
 			saveAction.setParent(this);
 			topPanel.add(btnSave);

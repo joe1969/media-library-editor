@@ -1,6 +1,5 @@
 package de.ravenfly.mle.episode.gui;
 
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -18,15 +17,17 @@ import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Binding;
 import org.jdesktop.beansbinding.BindingGroup;
+import org.jdesktop.beansbinding.BindingListener;
 import org.jdesktop.beansbinding.Bindings;
 
+import de.ravenfly.mle.modulebase.ContextObserver;
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.DataObserver;
 import de.ravenfly.mle.modulebase.filemodel.Episode;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 
-public class InfoEditor extends JPanel implements DataObserver {
+public class InfoEditor extends JPanel implements DataObserver, ContextObserver<Episode> {
 
 	private static final long serialVersionUID = 2208273354176814048L;
 	private final static Logger log = Logger.getLogger(InfoEditor.class.getName()); 
@@ -50,12 +51,23 @@ public class InfoEditor extends JPanel implements DataObserver {
 	private JScrollPane scrollPane_1;
 	private JScrollPane scrollPane_2;
 
+	private BindingListener bindingListener;
+
 	public InfoEditor() {
 		super();
 
 		setOpaque(false);
 
 		log.info("Start Info Editor");
+
+		bindingListener = new AbstractBindingListener(){
+
+			@SuppressWarnings("rawtypes")
+			@Override
+			public void synced(Binding arg0) {
+				context.setModified(true);
+			}
+		};
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -275,20 +287,15 @@ public class InfoEditor extends JPanel implements DataObserver {
 		overviewJTextField.setLineWrap(true);
 	}
 
+	@Override
 	public void setContext(DataContext<Episode> context){
-
 		this.context = context;
 		context.addDataObserver(this);
-
-		Episode episode = context.getModel();
-		if (episode != null) {
-			m_bindingGroup = initDataBindings();
-		}
 	}
 
 	@Override
-	public void done() {
-		if (context.isLoaded()) {
+	public void openDone() {
+		if (context.isOpen()) {
 			if (!context.isModified()) {
 
 				if (m_bindingGroup != null) {
@@ -296,19 +303,28 @@ public class InfoEditor extends JPanel implements DataObserver {
 					m_bindingGroup = null;
 				}
 				m_bindingGroup = initDataBindings();
-
-				m_bindingGroup.addBindingListener( new AbstractBindingListener(){
-
-					@SuppressWarnings("rawtypes")
-					@Override
-					public void synced(Binding arg0) {
-						context.setModified(true);
-						context.fireDone();
-					}
-				});
+				m_bindingGroup.addBindingListener(bindingListener);
 			}
 			updateUI();
 		}
+	}
+
+	@Override
+	public void closeDone() {
+		
+		if (m_bindingGroup != null) {
+			m_bindingGroup.removeBindingListener(bindingListener);
+			m_bindingGroup.unbind();
+			m_bindingGroup = null;
+		}
+	}
+
+	@Override
+	public void flushDone() {
+	}
+
+	@Override
+	public void modifiedDone() {
 	}
 
 	protected BindingGroup initDataBindings() {

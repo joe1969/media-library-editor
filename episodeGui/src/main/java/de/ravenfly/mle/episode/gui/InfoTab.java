@@ -10,13 +10,14 @@ import java.awt.GridBagConstraints;
 import javax.swing.border.EmptyBorder;
 
 import de.ravenfly.mle.modulebase.DataContext;
+import de.ravenfly.mle.modulebase.ContextObserver;
 import de.ravenfly.mle.modulebase.filemodel.Episode;
 
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class InfoTab extends JPanel {
+public class InfoTab extends JPanel implements ContextObserver<Episode> {
 
 	private static final long serialVersionUID = 7455824459886785329L;
 	private final ImageEditor imageEditor = new ImageEditor();
@@ -47,6 +48,7 @@ public class InfoTab extends JPanel {
 		add(imageEditor, gbc_imageEditor);
 	}
 
+	@Override
 	public void setContext(DataContext<Episode> context){
 		infoEditor.setContext(context);
 		imageEditor.setContext(context);

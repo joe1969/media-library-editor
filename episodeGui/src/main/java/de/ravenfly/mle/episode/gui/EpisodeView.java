@@ -26,6 +26,7 @@ public class EpisodeView extends DataTab<Episode> {
 		setMnemonicAt(1, KeyEvent.VK_2);
 	}
 
+	@Override
 	public void setContext(DataContext<Episode> context){
 		infoTab.setContext(context);
 	}

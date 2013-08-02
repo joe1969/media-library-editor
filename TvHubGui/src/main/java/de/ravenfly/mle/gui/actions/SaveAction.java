@@ -9,12 +9,12 @@ import de.ravenfly.mle.gui.data.DataAction;
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.DataObserver;
 
-public class SaveAction extends DataAction implements DataObserver{
+public class SaveAction<T> extends DataAction<T> implements DataObserver{
 
 	private static final long serialVersionUID = 4747773412132701749L;
 
-	public SaveAction(DataContext<?> context) {
-		super(context);
+	public SaveAction() {
+		super();
 
 		putValue(NAME, "Save");
 		putValue(SHORT_DESCRIPTION, "Save to file");
@@ -22,18 +22,36 @@ public class SaveAction extends DataAction implements DataObserver{
 		putValue(MNEMONIC_KEY, KeyEvent.VK_S);
 
 		setEnabled(false);
-		context.addDataObserver(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(context != null && context.isModified()){
-			context.save();
+			context.flush();
 		}
 	}
 
 	@Override
-	public void done() {
-		setEnabled(context.isLoaded() && context.isModified());
+	public void setContext(DataContext<T> context) {
+		super.setContext(context);
+		context.addDataObserver(this);
+	}
+
+	@Override
+	public void openDone() {
+		setEnabled(context.isOpen() && context.isModified());
+	}
+
+	@Override
+	public void closeDone() {
+	}
+
+	@Override
+	public void flushDone() {
+	}
+
+	@Override
+	public void modifiedDone() {
+		setEnabled(context.isOpen() && context.isModified());
 	}
 }

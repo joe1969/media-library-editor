@@ -13,27 +13,23 @@ import de.ravenfly.mle.gui.data.DataAction;
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.DataObserver;
 
-public class LoadAction extends DataAction implements DataObserver {
+public class LoadAction<T> extends DataAction<T> implements DataObserver {
 
 	private static final long serialVersionUID = 793084547231787173L;
 
-	protected File currentDirectory;
+	public LoadAction() {
+		super();
 
-	public LoadAction(DataContext<?> context) {
-		super(context);
-
-		currentDirectory = null;
-
-		putValue(NAME, "Open");
+		putValue(NAME, "Load");
 		putValue(SHORT_DESCRIPTION, "Open a file");
 		putValue(SMALL_ICON, new ImageIcon(LoadAction.class.getResource("/icons/small/folder.png")));
 		putValue(MNEMONIC_KEY, KeyEvent.VK_O);
-
-		context.addDataObserver(this);
 	}
 
-	public void setCurrentDirectory(String currentDirectory) {
-		this.currentDirectory = new File(currentDirectory);
+	@Override
+	public void setContext(DataContext<T> context) {
+		super.setContext(context);
+		this.context.addDataObserver(this);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -46,21 +42,33 @@ public class LoadAction extends DataAction implements DataObserver {
 		fc.setFileFilter(filter);
 		fc.setAcceptAllFileFilterUsed(true);
 
-		File curDir = new File(userPrefs.get("data.directory.last", currentDirectory.getAbsolutePath()));
-		if(curDir != null){
-			fc.setCurrentDirectory(curDir);
+		File currentDirectory = new File(userPrefs.get("data.directory.last", "."));
+		if(currentDirectory != null){
+			fc.setCurrentDirectory(currentDirectory);
 		}
 		int returnVal = fc.showOpenDialog(parent);
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			context.setVideofile(file);
-			context.load();
+			context.open();
 			userPrefs.put("data.directory.last", fc.getCurrentDirectory().getAbsolutePath());
         }
 	}
 
 	@Override
-	public void done() {
+	public void openDone() {
+	}
+
+	@Override
+	public void closeDone() {
+	}
+
+	@Override
+	public void flushDone() {
+	}
+
+	@Override
+	public void modifiedDone() {
 	}
 }

@@ -12,23 +12,23 @@ public class DataContext<T> {
 	private final static Logger log = Logger.getLogger(DataContext.class.getName()); 
 
 	private File videofile;
-	private boolean modified;
-	private boolean loaded;
-	private T model;
-	private DataHandler<T> datahandler;
-	private BufferedImage metathumb;
 	private String basePath;
 	private String baseName;
 	private String absoluteName;
+
+	private DataHandler<T> datahandler;
+
+	private boolean modified;
+	private boolean open;
+	private T model;
+	private BufferedImage metathumb;
 
 	protected List<DataObserver> observers;
 
 	public DataContext() {
 		super();
-		modified  = false;
-		loaded    = false;
 		observers = new ArrayList<DataObserver>();
-		metathumb = null;
+		close();
 	}
 
 	public File getVideofile() {
@@ -58,20 +58,33 @@ public class DataContext<T> {
 		return absoluteName;
 	}
 
+	public DataHandler<T> getDatahandler() {
+		return datahandler;
+	}
+
+	public void setDatahandler(DataHandler<T> datahandler) {
+		this.datahandler = datahandler;
+	}
+
 	public boolean isModified() {
 		return modified;
 	}
 
 	public void setModified(boolean modified) {
 		this.modified = modified;
+		if(modified){
+			for (DataObserver observer : observers) {
+				observer.modifiedDone();
+			}
+		}
 	}
 
-	public boolean isLoaded() {
-		return loaded;
+	public boolean isOpen() {
+		return open;
 	}
 
-	public void setLoaded(boolean loaded) {
-		this.loaded = loaded;
+	public void setOpen(boolean open) {
+		this.open = open;
 	}
 
 	public T getModel() {
@@ -82,14 +95,6 @@ public class DataContext<T> {
 		this.model = model;
 	}
 
-	public DataHandler<T> getDatahandler() {
-		return datahandler;
-	}
-
-	public void setDatahandler(DataHandler<T> datahandler) {
-		this.datahandler = datahandler;
-	}
-
 	public BufferedImage getMetathumb() {
 		return metathumb;
 	}
@@ -98,38 +103,48 @@ public class DataContext<T> {
 		this.metathumb = metathumb;
 	}
 
-	public boolean canLoad(){
-		return datahandler.canLoad();
-	}
-
-	public boolean canSave(){
-		return datahandler.canSave();
-	}
-
-	public void load(){
+	public void open(){
 		try {
-			model = getDatahandler().loadInfo(absoluteName);
+			model     = getDatahandler().loadInfo(absoluteName);
 			metathumb = getDatahandler().loadMetathumb(absoluteName);
 
-			setLoaded(true);
-			setModified(false);
+			open      = true;
+			modified  = false;
+
+			for (DataObserver observer : observers) {
+				observer.openDone();
+			}
 
 		} catch (DataException ex) {
 			log.log(Level.WARNING, "Data Exception", ex);
 		}
-
-		fireDone();
 	}
 
-	public void save(){
-		if(isModified()){
+	public void close(){
+		modified  = false;
+		open      = false;
+		model     = null;
+		metathumb = null;
+
+		for (DataObserver observer : observers) {
+			observer.closeDone();
+		}
+	}
+
+	public void flush(){
+		if(modified){
 			try {
+
 				getDatahandler().saveInfo(getModel(), getVideofile().getAbsolutePath());
-				setModified(false);
+				modified = false;
+
+				for (DataObserver observer : observers) {
+					observer.flushDone();
+				}
+
 			} catch (DataException ex) {
 				log.log(Level.WARNING, "Data Exception", ex);
 			}
-			fireDone();
 		}
 	}
 
@@ -142,17 +157,11 @@ public class DataContext<T> {
 			observers.remove(observer);
 		}
 	}
-
-	public void fireDone(){
-		for (DataObserver observer : observers) {
-			observer.done();
-		}
-	}
-
+	
 	@Override
 	public String toString() {
 		return "DataContext [videofile=" + videofile + ", modified=" + modified
-				+ ", loaded=" + loaded + ", model=" + model + ", datahandler="
+				+ ", loaded=" + open + ", model=" + model + ", datahandler="
 				+ datahandler + ", metathumb=" + metathumb + ", basePath="
 				+ basePath + ", baseName=" + baseName + ", absoluteName="
 				+ absoluteName + ", observers=" + observers + "]";

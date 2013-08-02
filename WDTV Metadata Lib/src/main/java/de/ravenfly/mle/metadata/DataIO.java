@@ -17,19 +17,9 @@ import de.ravenfly.mle.modulebase.filemodel.Episode;
 
 public class DataIO implements DataHandler<Episode>{
 
-    @Override
-	public boolean canLoad() {
-		return true;
-	}
-
-	@Override
-	public boolean canSave() {
-		return true;
-	}
-
 	// "data/Shakugan no Shana.s01e01.xml"
 	@Override
-	public Episode loadInfo(String path) throws DataException {
+	public synchronized Episode loadInfo(String path) throws DataException {
 		JAXBContext context;
 
 		try {
@@ -56,7 +46,7 @@ public class DataIO implements DataHandler<Episode>{
 	}
 
 	@Override
-	public void saveInfo(Episode model, String path) throws DataException {
+	public synchronized void saveInfo(Episode model, String path) throws DataException {
 
 		System.out.println("Path: " + path + ".xml");
 		System.out.println("Model: " + model);
@@ -85,7 +75,7 @@ public class DataIO implements DataHandler<Episode>{
 		}
 	}
 
-	public BufferedImage loadMetathumb(String path) throws DataException{
+	public synchronized BufferedImage loadMetathumb(String path) throws DataException{
 
 		File metathumb = new File(path + ".metathumb");
 		BufferedImage img = null;
@@ -99,7 +89,7 @@ public class DataIO implements DataHandler<Episode>{
 		return img;
 	}
 
-	public void saveMetathumb(BufferedImage image, String path) throws DataException{
+	public synchronized void saveMetathumb(BufferedImage image, String path) throws DataException{
 		
 	}
 
