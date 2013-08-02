@@ -29,8 +29,8 @@ public class DataPanel<T> extends JPanel {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		DataFeatures           features     = DataFeaturesFactory.create();
-		final DataTab<T>       tab          = DataTabFactory.createDataTab();
-		
+		DataTab<T>             dataTab      = DataTabFactory.createDataTab();
+
 		DataContextSelector<T> selector     = new DataContextSelector<T>();
 
 		OpenAction<T>          openAction   = new OpenAction<T>();
@@ -47,8 +47,8 @@ public class DataPanel<T> extends JPanel {
 
 		add(selector, BorderLayout.WEST);
 
-		add(tab, BorderLayout.CENTER);
-		selector.addContextObserver(tab);
+		add(dataTab, BorderLayout.CENTER);
+		selector.addContextObserver(dataTab);
 		selector.addContextObserver(loadAction);
 		selector.addContextObserver(saveAction);
 		selector.addContextObserver(reloadAction);

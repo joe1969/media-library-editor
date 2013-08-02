@@ -72,8 +72,8 @@ public class MainWindow extends JFrame{
 		setContentPane(contentPane);
 
 		try {
-			DataPanel<Episode> episodePanel = new DataPanel<Episode>();
-			contentPane.add(episodePanel, BorderLayout.CENTER);
+			DataPanel<Episode> dataPanel = new DataPanel<Episode>();
+			contentPane.add(dataPanel, BorderLayout.CENTER);
 		} catch (DataException e) {
 			e.printStackTrace();
 		}
