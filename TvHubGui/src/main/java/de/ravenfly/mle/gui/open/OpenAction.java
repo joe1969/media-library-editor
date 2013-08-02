@@ -18,15 +18,14 @@ import de.ravenfly.mle.gui.VideoFileFilter;
 import de.ravenfly.mle.gui.osgi.DataContextFactory;
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.DataException;
-import de.ravenfly.mle.modulebase.filemodel.Episode;
 
-public class OpenAction extends AbstractAction {
+public class OpenAction<T> extends AbstractAction {
 
 	private static final long serialVersionUID = 793084547231787173L;
 
 	protected Component parent;
 
-	private List<OpenObserver<Episode>> observers;
+	private List<OpenObserver<T>> observers;
 
 	public OpenAction() {
 		super();
@@ -36,14 +35,14 @@ public class OpenAction extends AbstractAction {
 		putValue(SMALL_ICON, new ImageIcon(OpenAction.class.getResource("/icons/small/folder.png")));
 		putValue(MNEMONIC_KEY, KeyEvent.VK_O);
 
-		observers = new ArrayList<OpenObserver<Episode>>();
+		observers = new ArrayList<OpenObserver<T>>();
 	}
 
-	public void addOpenObserver(OpenObserver<Episode> observer){
+	public void addOpenObserver(OpenObserver<T> observer){
 		observers.add(observer);
 	}
 
-	public void removeOpenObserver(OpenObserver<Episode> observer){
+	public void removeOpenObserver(OpenObserver<T> observer){
 		if(observers.contains(observer)){
 			observers.remove(observer);
 		}
@@ -74,14 +73,14 @@ public class OpenAction extends AbstractAction {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File folder = fc.getSelectedFile().isDirectory()?fc.getSelectedFile():new File(fc.getSelectedFile().getParent());
 
-			List<DataContext<Episode>> contextList = new ArrayList<DataContext<Episode>>(); 
+			List<DataContext<T>> contextList = new ArrayList<DataContext<T>>(); 
 
 			File[] listOfFiles = folder.listFiles(); 
 			for (File file : listOfFiles) {
 				String ext = file.getName().substring(file.getName().lastIndexOf('.') + 1).toLowerCase();
 				if(ext.equals("flv") || ext.equals("mp3") || ext.equals("mkv")){
 					try {
-						DataContext<Episode> context = DataContextFactory.createContext(Episode.class);
+						DataContext<T> context = DataContextFactory.createContext();
 						context.setVideofile(file);
 						contextList.add(context);
 					} catch (DataException e1) {
@@ -90,9 +89,10 @@ public class OpenAction extends AbstractAction {
 				}
 			}
 
-			Collections.sort(contextList, contextListComparator());
+			Comparator<DataContext<T>> c = contextListComparator();
+			Collections.sort(contextList, c);
 
-			for (OpenObserver<Episode> observer : observers) {
+			for (OpenObserver<T> observer : observers) {
 				observer.contextOpen(contextList);
 			}
 
@@ -100,10 +100,10 @@ public class OpenAction extends AbstractAction {
         }
 	}
 
-	protected static Comparator<DataContext<Episode>> contextListComparator() {
-		return new Comparator<DataContext<Episode>>() {
+	protected static <T> Comparator<DataContext<T>> contextListComparator() {
+		return new Comparator<DataContext<T>>() {
 			@Override
-			public int compare(DataContext<Episode> first, DataContext<Episode> second) {
+			public int compare(DataContext<T> first, DataContext<T> second) {
 				return first.getBaseName().compareTo(second.getBaseName());
 			}
 		};

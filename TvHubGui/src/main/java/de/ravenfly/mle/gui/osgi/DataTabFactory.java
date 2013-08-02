@@ -12,7 +12,7 @@ public class DataTabFactory {
 
 	private final static Logger log = Logger.getLogger(DataTabFactory.class.getName()); 
 
-	public static <T> DataTab<T> createDataTab(Class<T> clazz) throws DataException{
+	public static <T> DataTab<T> createDataTab() throws DataException{
 
 		BundleContext bundleContext = ModuleFactory.getInstance().getBundleContext();
 

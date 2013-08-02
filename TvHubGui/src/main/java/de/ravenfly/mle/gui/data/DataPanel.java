@@ -1,4 +1,4 @@
-package de.ravenfly.mle.gui.episode;
+package de.ravenfly.mle.gui.data;
 
 import javax.swing.JPanel;
 
@@ -15,29 +15,28 @@ import de.ravenfly.mle.gui.osgi.DataTabFactory;
 import de.ravenfly.mle.gui.osgi.DataFeaturesFactory;
 import de.ravenfly.mle.modulebase.DataException;
 import de.ravenfly.mle.modulebase.DataFeatures;
-import de.ravenfly.mle.modulebase.filemodel.Episode;
 import de.ravenfly.mle.modulebase.gui.DataTab;
 
 import java.awt.FlowLayout;
 
-public class EpisodePanel extends JPanel {
+public class DataPanel<T> extends JPanel {
 
 	private static final long serialVersionUID = 1583025667054246775L;
 
-	public EpisodePanel() throws DataException{
+	public DataPanel() throws DataException{
 
 		setLayout(new BorderLayout(10, 0));
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		DataFeatures                 features     = DataFeaturesFactory.create();
+		DataFeatures           features     = DataFeaturesFactory.create();
+		final DataTab<T>       tab          = DataTabFactory.createDataTab();
+		
+		DataContextSelector<T> selector     = new DataContextSelector<T>();
 
-		DataContextSelector<Episode> selector     = new DataContextSelector<Episode>();
-		final DataTab<Episode>       tab          = DataTabFactory.createDataTab(Episode.class);
-
-		OpenAction                   openAction   = new OpenAction();
-		LoadAction<Episode>          loadAction   = new LoadAction<Episode>();
-		SaveAction<Episode>          saveAction   = new SaveAction<Episode>();
-		ReloadAction<Episode>        reloadAction = new ReloadAction<Episode>();
+		OpenAction<T>          openAction   = new OpenAction<T>();
+		LoadAction<T>          loadAction   = new LoadAction<T>();
+		SaveAction<T>          saveAction   = new SaveAction<T>();
+		ReloadAction<T>        reloadAction = new ReloadAction<T>();
 
 		openAction.addOpenObserver(selector);
 

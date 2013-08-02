@@ -12,8 +12,9 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-import de.ravenfly.mle.gui.episode.EpisodePanel;
+import de.ravenfly.mle.gui.data.DataPanel;
 import de.ravenfly.mle.modulebase.DataException;
+import de.ravenfly.mle.modulebase.filemodel.Episode;
 
 public class MainWindow extends JFrame{
 
@@ -71,7 +72,7 @@ public class MainWindow extends JFrame{
 		setContentPane(contentPane);
 
 		try {
-			EpisodePanel episodePanel = new EpisodePanel();
+			DataPanel<Episode> episodePanel = new DataPanel<Episode>();
 			contentPane.add(episodePanel, BorderLayout.CENTER);
 		} catch (DataException e) {
 			e.printStackTrace();

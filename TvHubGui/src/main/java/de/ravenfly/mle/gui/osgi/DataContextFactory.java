@@ -1,6 +1,5 @@
 package de.ravenfly.mle.gui.osgi;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.osgi.framework.BundleContext;
@@ -14,7 +13,7 @@ public class DataContextFactory {
 
 	private final static Logger log = Logger.getLogger(DataContextFactory.class.getName()); 
 
-	public static <T> DataContext<T> createContext(Class<T> clazz) throws DataException{
+	public static <T> DataContext<T> createContext() throws DataException{
 
 		BundleContext bundleContext = ModuleFactory.getInstance().getBundleContext();
 
@@ -29,16 +28,6 @@ public class DataContextFactory {
         }
 
 		dataContext.setDatahandler(handler);
-
-		try {
-			dataContext.setModel(clazz.newInstance());
-		} catch (InstantiationException e) {
-			log.log(Level.WARNING, "Instantiation Exception", e);
-			throw new DataException(e);
-		} catch (IllegalAccessException e) {
-			log.log(Level.WARNING, "Illegal Access Exception", e);
-			throw new DataException(e);
-		}
 
 		return dataContext;
 	}

@@ -1,4 +1,4 @@
-package de.ravenfly.mle.gui.episode;
+package de.ravenfly.mle.gui.data;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JPanel;

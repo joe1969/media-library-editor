@@ -1,4 +1,4 @@
-package de.ravenfly.mle.gui.episode;
+package de.ravenfly.mle.gui.data;
 
 import java.awt.Color;
 import java.awt.Component;
