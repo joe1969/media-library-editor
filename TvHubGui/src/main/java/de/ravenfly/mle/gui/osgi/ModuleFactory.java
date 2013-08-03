@@ -99,7 +99,7 @@ public class ModuleFactory {
 		return bundleContext;
 	}
 
-	public Modules readXML() throws JAXBException, FileNotFoundException{
+	private Modules readXML() throws JAXBException, FileNotFoundException{
 		JAXBContext context = JAXBContext.newInstance(Modules.class);
 		Unmarshaller um = context.createUnmarshaller();
 		Modules modules = (Modules) um.unmarshal(new File("config/modules.xml"));
