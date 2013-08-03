@@ -1,5 +1,7 @@
 package de.ravenfly.mle.gui.osgi;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -9,12 +11,19 @@ import java.util.ServiceLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
 import org.osgi.framework.launch.Framework;
 import org.osgi.framework.launch.FrameworkFactory;
+
+import de.ravenfly.mle.gui.osgi.model.Module;
+import de.ravenfly.mle.gui.osgi.model.Modules;
 
 public class ModuleFactory {
 
@@ -62,10 +71,17 @@ public class ModuleFactory {
 		List<Bundle> installedBundles = new LinkedList<Bundle>();
 
 		try {
-			installedBundles.add(bundleContext.installBundle("file:../WDTV Metadata Lib/target/wdtvMetadata-1.0.0-SNAPSHOT.jar"));
-			installedBundles.add(bundleContext.installBundle("file:../episodeGui/target/episodeGui-1.0.0-SNAPSHOT.jar"));
+			Modules modules = readXML();
+			for (Module module : modules.getModules()) {
+				log.info("Install Module: " + module);
+				installedBundles.add(bundleContext.installBundle(module.getFilename()));
+			}
 		} catch (BundleException e) {
 			log.log(Level.SEVERE, "Bundle Exception on install Bundles", e);
+		} catch (FileNotFoundException e) {
+			log.log(Level.SEVERE, "File Not Found Exception on install Bundles", e);
+		} catch (JAXBException e) {
+			log.log(Level.SEVERE, "JAXB Exception on install Bundles", e);
 		}
 
 		for (Bundle bundle : installedBundles) {
@@ -81,5 +97,12 @@ public class ModuleFactory {
 
 	public BundleContext getBundleContext() {
 		return bundleContext;
+	}
+
+	public Modules readXML() throws JAXBException, FileNotFoundException{
+		JAXBContext context = JAXBContext.newInstance(Modules.class);
+		Unmarshaller um = context.createUnmarshaller();
+		Modules modules = (Modules) um.unmarshal(new File("config/modules.xml"));
+		return modules;
 	}
 }

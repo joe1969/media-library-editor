@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<modules>
+	<module>
+		<classes>
+			<class>DataHandler</class>
+			<class>DataFeatures</class>
+		</classes>
+		<url>file:../WDTV Metadata Lib/target/wdtvMetadata-1.0.0-SNAPSHOT.jar</url>
+	</module>
+	<module>
+		<classes>
+			<class>DataTab</class>
+		</classes>
+		<url>file:../episodeGui/target/episodeGui-1.0.0-SNAPSHOT.jar</url>
+	</module>
+</modules>
