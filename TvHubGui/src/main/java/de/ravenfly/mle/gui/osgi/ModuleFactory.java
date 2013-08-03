@@ -45,11 +45,7 @@ public class ModuleFactory {
 
 		List<String> packages = new ArrayList<String>();
 
-		packages.add("javax.xml.bind");
-		packages.add("org.jdesktop.beansbinding");
-		packages.add("org.osgi.framework");
 		packages.add("de.ravenfly.mle.modulebase");
-		packages.add("de.ravenfly.mle.modulebase.filemodel");
 		packages.add("de.ravenfly.mle.modulebase.gui");
 
 		StringBuilder buffer = new StringBuilder();

@@ -18,7 +18,7 @@ import javax.swing.border.EtchedBorder;
 import de.ravenfly.mle.modulebase.ContextObserver;
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.DataObserver;
-import de.ravenfly.mle.modulebase.filemodel.Episode;
+import de.ravenfly.mle.episode.filemodel.Episode;
 
 public class ImageEditor extends JPanel implements DataObserver, ContextObserver<Episode> {
 

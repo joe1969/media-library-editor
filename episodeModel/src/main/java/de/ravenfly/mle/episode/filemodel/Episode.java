@@ -1,4 +1,4 @@
-package de.ravenfly.mle.modulebase.filemodel;
+package de.ravenfly.mle.episode.filemodel;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@Deprecated
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "details")
 public class Episode {

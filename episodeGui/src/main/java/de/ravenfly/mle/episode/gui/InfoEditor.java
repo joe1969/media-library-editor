@@ -23,7 +23,7 @@ import org.jdesktop.beansbinding.Bindings;
 import de.ravenfly.mle.modulebase.ContextObserver;
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.DataObserver;
-import de.ravenfly.mle.modulebase.filemodel.Episode;
+import de.ravenfly.mle.episode.filemodel.Episode;
 
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 

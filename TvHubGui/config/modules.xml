@@ -2,6 +2,9 @@
 
 <modules>
 	<module>
+		<url>file:../episodeModel/target/episodeModel-1.0.0-SNAPSHOT.jar</url>
+	</module>
+	<module>
 		<classes>
 			<class>DataHandler</class>
 			<class>DataFeatures</class>

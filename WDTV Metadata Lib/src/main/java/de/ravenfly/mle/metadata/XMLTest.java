@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import de.ravenfly.mle.modulebase.filemodel.Episode;
+import de.ravenfly.mle.episode.filemodel.Episode;
 
 public class XMLTest {
 

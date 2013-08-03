@@ -13,7 +13,7 @@ import javax.xml.bind.Unmarshaller;
 
 import de.ravenfly.mle.modulebase.DataException;
 import de.ravenfly.mle.modulebase.DataHandler;
-import de.ravenfly.mle.modulebase.filemodel.Episode;
+import de.ravenfly.mle.episode.filemodel.Episode;
 
 public class DataIO implements DataHandler<Episode>{
 

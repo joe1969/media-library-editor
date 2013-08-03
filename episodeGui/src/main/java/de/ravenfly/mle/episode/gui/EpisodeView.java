@@ -3,8 +3,8 @@ package de.ravenfly.mle.episode.gui;
 import java.awt.event.KeyEvent;
 
 import de.ravenfly.mle.modulebase.DataContext;
-import de.ravenfly.mle.modulebase.filemodel.Episode;
 import de.ravenfly.mle.modulebase.gui.DataTab;
+import de.ravenfly.mle.episode.filemodel.Episode;
 
 public class EpisodeView extends DataTab<Episode> {
 

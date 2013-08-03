@@ -1,11 +1,10 @@
-package de.ravenfly.mle.modulebase.filemodel;
+package de.ravenfly.mle.episode.filemodel;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
-@Deprecated
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "backdrop")
 public class Backdrop {

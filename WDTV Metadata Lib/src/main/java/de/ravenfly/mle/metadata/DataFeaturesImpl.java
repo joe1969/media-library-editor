@@ -1,7 +1,7 @@
 package de.ravenfly.mle.metadata;
 
 import de.ravenfly.mle.modulebase.DataFeatures;
-import de.ravenfly.mle.modulebase.filemodel.Episode;
+import de.ravenfly.mle.episode.filemodel.Episode;
 
 public class DataFeaturesImpl implements DataFeatures {
 

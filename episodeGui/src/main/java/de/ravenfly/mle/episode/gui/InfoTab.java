@@ -11,7 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import de.ravenfly.mle.modulebase.DataContext;
 import de.ravenfly.mle.modulebase.ContextObserver;
-import de.ravenfly.mle.modulebase.filemodel.Episode;
+import de.ravenfly.mle.episode.filemodel.Episode;
 
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
