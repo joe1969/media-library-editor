@@ -26,7 +26,7 @@ public class MainWindow extends JFrame{
 
 	public static void main(String[] args) {
 
-		System.setProperty("java.util.logging.config.file", "logging.properties");
+		System.setProperty("java.util.logging.config.file", "config/logging.properties");
 		try {
 			LogManager.getLogManager().readConfiguration();
 		} catch (Exception e) {
